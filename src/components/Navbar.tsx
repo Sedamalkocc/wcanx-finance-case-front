@@ -19,7 +19,7 @@ export default function Navbar() {
             <Link href="/categories" className="hover:text-indigo-200">Categories</Link>
             <Link href="/profile" className="hover:text-indigo-200">Profile</Link>
             <Link href="/summary" className="hover:text-indigo-200">Summary</Link>
-            <Link href="/settings" className="hover:text-indigo-200">Settings</Link>
+            <Link href="/analysis" className="hover:text-indigo-200">Analysis</Link>
           </div>
 
           <div className="md:hidden flex items-center">
