@@ -37,7 +37,6 @@ export default function TransactionsPage() {
         
         <TransactionList transactions={transactions} onDelete={handleDelete} onEdit={setEditingTx} />
         <TransactionTotals transactions={transactions} />
-        <TransactionSummary/>
       </div>
     </div>
   );

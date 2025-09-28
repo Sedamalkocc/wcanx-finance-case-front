@@ -8,14 +8,23 @@ interface Category {
   name: string;
   type: "income" | "expense";
   color: string;
+  priority?: number;
 }
+
+const priorityColors: Record<number, string> = {
+  1: "#b71c1c",
+  2: "#f44336",
+  3: "#ff9800",
+  4: "#ffc107",
+  5:"#4caf50",
+};
 
 export default function Categories() {
   const [categories, setCategories] = useState<Category[]>([]);
 
   useEffect(() => {
     api.get("/categories")
-      .then(res => setCategories(res.data))
+      .then(res => setCategories(res.data as Category[]))
       .catch(() => console.error("Categories alınamadı"));
   }, []);
 
@@ -26,8 +35,10 @@ export default function Categories() {
         {categories.map(cat => (
           <li
             key={cat.id}
-            className="px-3 py-1 rounded-lg text-sm font-medium"
-            style={{ backgroundColor: cat.color || "#eee" }}
+            className="px-3 py-1 rounded-lg text-sm font-medium text-white"
+            style={{
+              backgroundColor: cat.color || priorityColors[cat.priority ?? 1] || "#eee",
+            }}
           >
             {cat.name}
           </li>

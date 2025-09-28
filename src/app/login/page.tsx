@@ -1,5 +1,7 @@
 "use client";
+
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { loginUser } from "@/lib/auth";
 
 export default function LoginPage() {
@@ -8,6 +10,8 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [showMessage, setShowMessage] = useState(false);
+
+  const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,16 +22,15 @@ export default function LoginPage() {
     try {
       const data = await loginUser(email, password);
       localStorage.setItem("token", data.access_token);
+      localStorage.setItem("email", email);
+
       setSuccess("Login successful!");
       setShowMessage(true);
 
       setTimeout(() => {
         setShowMessage(false);
+        router.push("/transactions"); // <- router ile yönlendirme
       }, 1800);
-
-      setTimeout(() => {
-        window.location.href = "/dashboard";
-      }, 2000);
     } catch (err: any) {
       setError(err.response?.data?.message || "Login failed");
     }
