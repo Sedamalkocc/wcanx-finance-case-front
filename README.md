@@ -1,36 +1,159 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📊 Finance Tracker (Frontend)
 
-## Getting Started
+Modern bir **kişisel finans yönetimi uygulaması**.  
+**Next.js + TypeScript + TailwindCSS + Chart.js** kullanılarak geliştirilmiştir.
 
-First, run the development server:
+---
+
+## 🚀 Özellikler
+
+- 🔑 **Authentication**: Kayıt ol, giriş yap, profil güncelle  
+- 🏠 **Dashboard**: Hızlı erişim ve özetler  
+- 📂 **Kategoriler**: Gelir / gider kategorilerini yönet  
+- 💵 **Transactions**: Gelir ve gider hareketlerini ekleme, düzenleme, silme  
+- 📊 **Analiz & Raporlar**: Pie chart, bar chart, transaction list  
+- 🎨 **Responsive UI**: TailwindCSS ile modern tasarım  
+
+---
+
+## 📁 Proje Yapısı
+
+/app
+/analysis
+/categories
+/dashboard
+/login
+/profile
+/register
+/transactions
+
+/components
+/Analysis
+/Transactions
+
+/lib
+auth.ts
+categories.ts
+transaction.ts
+
+
+---
+
+## 🔐 Auth Sayfaları
+
+### **LoginPage**
+- Kullanıcı giriş ekranı.  
+- `loginUser` API çağrısı ile token alır.  
+- Başarılı giriş → `/dashboard`.  
+
+### **RegisterPage**
+- Kullanıcı kayıt ekranı.  
+- `registerUser` API çağrısı ile kullanıcı oluşturur.  
+- Kayıt sonrası otomatik olarak **login sayfasına yönlendirir**.  
+
+### **ProfilePage**
+- Kullanıcı bilgilerini gösterir (**email, username**).  
+- Şifre değişikliği yapılabilir.  
+- Profil güncellemesi `updateProfile` API çağrısı ile yapılır.  
+
+---
+
+## 🏠 Dashboard
+
+### **DashboardHome**
+- Kullanıcıya **Hoşgeldin mesajı** gösterir.  
+- Hızlı erişim kutuları:  
+  - Kategoriler  
+  - Hareketler  
+
+---
+
+## 📂 Kategoriler
+
+### **CategoryPage**
+- Kategori ekleme, güncelleme, silme.  
+- Alanlar: **name, type (income/expense), priority, color**.  
+- API fonksiyonları:  
+  - `getCategories`  
+  - `createCategory`  
+  - `updateCategory`  
+  - `deleteCategory`  
+
+---
+
+## 💵 Transactions
+
+### **TransactionsPage**
+- Tüm hareketlerin listelendiği ana sayfa.  
+- İçerikler:  
+  - `TransactionForm` → Yeni hareket ekleme / düzenleme  
+  - `TransactionList` → Listeleme  
+  - `TransactionFilter` → Filtreleme  
+  - `TransactionTotals` → Özet  
+  - `TransactionSummary` → Genel özet  
+
+### **TransactionForm**
+- Yeni hareket ekleme veya mevcut hareketi düzenleme.  
+- Alanlar: **amount, type, category, note, date**.  
+
+### **EditTransactionModal**
+- Mevcut hareket için modal üzerinde düzenleme ekranı.  
+
+### **TransactionFilter**
+- Filtreleme kriterleri: **type, category, date**.  
+
+---
+
+## 📊 Analiz & Raporlar
+
+### **AnalysisPage**
+- **Gelir / gider bar chart**  
+- **Kategori bazlı pie chart**  
+- **İşlem listesi**  
+
+### **TotalsChart**
+- Bar chart: **Income, Expense, Balance**  
+
+### **CategoryPieChart**
+- Pie chart: **Kategori bazlı harcama**  
+
+### **TransactionList (Analysis versiyonu)**
+- İşlemlerin tablo halinde gösterimi.  
+
+---
+
+## ⚙️ API Bağlantıları
+
+Tüm API işlemleri `/lib` klasöründe tanımlanır.
+
+- **auth.ts** → `loginUser`, `registerUser`, `getProfile`, `updateProfile`  
+- **categories.ts** → `getCategories`, `createCategory`, `updateCategory`, `deleteCategory`  
+- **transaction.ts** → `getTransactions`, `createTransaction`, `updateTransaction`, `deleteTransaction`, `filterTransactions`, `getTotals`, `getSummary`  
+
+---
+
+## 🛠️ Teknolojiler
+
+- [Next.js 13+](https://nextjs.org/)  
+- [TypeScript](https://www.typescriptlang.org/)  
+- [Tailwind CSS](https://tailwindcss.com/)  
+- [Chart.js](https://www.chartjs.org/)  
+
+- [Axios / Fetch API](https://axios-http.com/)  
+
+---
+
+## ▶️ Çalıştırma
 
 ```bash
+# bağımlılıkları yükle
+npm install
+
+# development başlat
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# build al
+npm run build
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# production başlat
+npm start

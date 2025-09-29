@@ -6,7 +6,6 @@ export interface UserProfile {
   email: string;
 }
 
-// -------- LOGIN & REGISTER --------
 export interface LoginResponse {
   access_token: string;
 }
