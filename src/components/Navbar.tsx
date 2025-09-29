@@ -18,7 +18,6 @@ export default function Navbar() {
             <Link href="/transactions" className="hover:text-indigo-200">Transactions</Link>
             <Link href="/categories" className="hover:text-indigo-200">Categories</Link>
             <Link href="/profile" className="hover:text-indigo-200">Profile</Link>
-            <Link href="/summary" className="hover:text-indigo-200">Summary</Link>
             <Link href="/analysis" className="hover:text-indigo-200">Analysis</Link>
           </div>
 
@@ -46,9 +45,9 @@ export default function Navbar() {
       {isOpen && (
         <div className="md:hidden bg-indigo-600 px-2 pt-2 pb-4 space-y-1">
           <Link href="/transactions" className="block px-3 py-2 rounded hover:bg-indigo-500">Transactions</Link>
+          <Link href="/categories" className="block px-3 py-2 rounded hover:bg-indigo-500">Categories</Link>
           <Link href="/profile" className="block px-3 py-2 rounded hover:bg-indigo-500">Profile</Link>
-          <Link href="/summary" className="block px-3 py-2 rounded hover:bg-indigo-500">Summary</Link>
-          <Link href="/settings" className="block px-3 py-2 rounded hover:bg-indigo-500">Settings</Link>
+          <Link href="/analysis" className="block px-3 py-2 rounded hover:bg-indigo-500">Analysis</Link>
         </div>
       )}
     </nav>

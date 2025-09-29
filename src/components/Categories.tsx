@@ -1,15 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import api from "@/lib/api";
-
-interface Category {
-  id: string;
-  name: string;
-  type: "income" | "expense";
-  color: string;
-  priority?: number;
-}
+import { getCategories, Category } from "@/lib/categories";
 
 const priorityColors: Record<number, string> = {
   1: "#b71c1c",
@@ -23,9 +15,16 @@ export default function Categories() {
   const [categories, setCategories] = useState<Category[]>([]);
 
   useEffect(() => {
-    api.get("/categories")
-      .then(res => setCategories(res.data as Category[]))
-      .catch(() => console.error("Categories alınamadı"));
+    const fetchCategories = async () => {
+      try {
+        const data = await getCategories();
+        setCategories(data);
+      } catch (err) {
+        console.error("Categories alınamadı", err);
+      }
+    };
+
+    fetchCategories();
   }, []);
 
   return (
@@ -34,7 +33,7 @@ export default function Categories() {
       <ul className="flex flex-wrap gap-2">
         {categories.map(cat => (
           <li
-            key={cat.id}
+            key={cat._id}
             className="px-3 py-1 rounded-lg text-sm font-medium text-white"
             style={{
               backgroundColor: cat.color || priorityColors[cat.priority ?? 1] || "#eee",

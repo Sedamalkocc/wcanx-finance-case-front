@@ -11,7 +11,6 @@ import {
   Title,
 } from "chart.js";
 
-// Pie chart için gerekli elementleri register et
 ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
 export default function CategoryPieChart() {
@@ -20,7 +19,6 @@ export default function CategoryPieChart() {
   useEffect(() => {
     async function fetchSummary() {
       const res = await getSummary("monthly");
-      console.log('API Response:', res);
       setCategories(res);
     }
     fetchSummary();
@@ -37,8 +35,8 @@ export default function CategoryPieChart() {
   };
 
   const options = {
-    responsive: true, // mobil ve masaüstüne uyumlu
-    maintainAspectRatio: false, // container yüksekliğine göre esnek
+    responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: 'bottom' as const,

@@ -29,7 +29,7 @@ export default function LoginPage() {
 
       setTimeout(() => {
         setShowMessage(false);
-        router.push("/transactions"); // <- router ile yönlendirme
+        router.push("/dashboard");
       }, 1800);
     } catch (err: any) {
       setError(err.response?.data?.message || "Login failed");

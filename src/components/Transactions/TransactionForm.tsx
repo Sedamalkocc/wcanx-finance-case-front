@@ -29,6 +29,8 @@ export default function TransactionForm({ onAdd, editingTx, onUpdate, onCancelEd
           : new Date().toISOString().slice(0, 10)
       );
       setCategoryId(editingTx.category?._id || "");
+    } else {
+      resetForm();
     }
   }, [editingTx]);
 
@@ -39,6 +41,19 @@ export default function TransactionForm({ onAdd, editingTx, onUpdate, onCancelEd
       if (filtered.length > 0 && !categoryId) setCategoryId(filtered[0]._id);
     });
   }, [type]);
+
+  const resetForm = () => {
+    setAmount("");
+    setNote("");
+    setDate(new Date().toISOString().slice(0, 10));
+    setType("income");
+    setCategoryId(categories.length > 0 ? categories[0]._id : "");
+  };
+
+  const handleCancel = () => {
+    resetForm();
+    if (onCancelEdit) onCancelEdit();
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -66,9 +81,7 @@ export default function TransactionForm({ onAdd, editingTx, onUpdate, onCancelEd
       onAdd(newTx);
     }
 
-    setAmount("");
-    setNote("");
-    if (onCancelEdit) onCancelEdit();
+    resetForm();
   };
 
   return (
@@ -117,10 +130,10 @@ export default function TransactionForm({ onAdd, editingTx, onUpdate, onCancelEd
         >
           {editingTx ? "Güncelle" : "Ekle"}
         </button>
-        {editingTx && onCancelEdit && (
+        {editingTx && (
           <button
             type="button"
-            onClick={onCancelEdit}
+            onClick={handleCancel}
             className="bg-gray-400 text-white px-4 py-2 rounded-lg hover:bg-gray-500 transition"
           >
             İptal

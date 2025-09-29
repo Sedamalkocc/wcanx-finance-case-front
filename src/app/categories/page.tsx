@@ -7,7 +7,7 @@ export default function CategoryPage() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [name, setName] = useState("");
   const [type, setType] = useState<"income" | "expense">("expense");
-  const [priority, setPriority] = useState(1);
+  const [priority, setPriority] = useState("1");
   const [loading, setLoading] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [message, setMessage] = useState("");
@@ -28,7 +28,12 @@ export default function CategoryPage() {
   const handleSubmit = async () => {
     setLoading(true);
     try {
-      const payload = { name, type, priority }; // color artık gönderilmiyor
+      const payload = { 
+        name, 
+        type, 
+        priority: parseInt(priority, 6)
+      };
+
       if (editingId) {
         await updateCategory(editingId, payload);
         setMessage("Category updated!");
@@ -51,7 +56,7 @@ export default function CategoryPage() {
     setEditingId(cat._id);
     setName(cat.name || "");
     setType(cat.type || "expense");
-    setPriority(cat.priority ?? 1); // priority backend’den gelecek renk için
+    setPriority((cat.priority ?? 1).toString());
   };
 
   const handleDelete = async (id: string) => {
@@ -63,7 +68,7 @@ export default function CategoryPage() {
   const resetForm = () => {
     setName("");
     setType("expense");
-    setPriority(1);
+    setPriority("1");
     setEditingId(null);
   };
 
@@ -80,17 +85,20 @@ export default function CategoryPage() {
           onChange={(e) => setName(e.target.value)}
           className="border p-2 rounded-lg flex-1"
         />
-        <select value={type} onChange={(e) => setType(e.target.value as any)} className="border p-2 rounded-lg">
+        <select 
+          value={type} 
+          onChange={(e) => setType(e.target.value as any)} 
+          className="border p-2 rounded-lg"
+        >
           <option value="income">Income</option>
           <option value="expense">Expense</option>
         </select>
         <input
-          type="number"
+          type="text"
           value={priority}
-          onChange={(e) => setPriority(Number(e.target.value))}
-          min={1}
-          max={5}
+          onChange={(e) => setPriority(e.target.value)}
           className="border p-2 rounded-lg w-20"
+          placeholder="Priority"
         />
         <button
           onClick={handleSubmit}
@@ -111,7 +119,7 @@ export default function CategoryPage() {
             <div
               key={cat._id}
               className="p-4 rounded-lg shadow flex justify-between items-center text-white"
-              style={{ backgroundColor: cat.color }} // renk backend’den geliyor
+              style={{ backgroundColor: cat.color }} 
             >
               <div>
                 <p className="font-bold">{cat.name}</p>
