@@ -44,7 +44,7 @@ transaction.ts
 ### **LoginPage**
 - Kullanıcı giriş ekranı.  
 - `loginUser` API çağrısı ile token alır.  
-- Başarılı giriş → `/dashboard`.  
+- Başarılı giriş → `/dashboard`.  Örnek giriş: "email": "seda@example.com", "password": "123456"
 
 ### **RegisterPage**
 - Kullanıcı kayıt ekranı.  
